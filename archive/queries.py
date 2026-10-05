@@ -13,23 +13,14 @@ Note in your README which one would be instant with a dictionary instead.
 
 
 def count_before(records, year):
-    """How many manuscripts were written strictly BEFORE `year`?
-
-    `year` is an int. Record years may be strings from the file — convert.
-
-    Returns int.
-    """
     raise NotImplementedError("count_before")
 
 
 def find_by_city(records, city):
-    """Every record whose city matches `city`, case-insensitively.
-
-    Order is preserved: the records come back in the order they appear in
-    `records`.
-
-    Returns list of dicts (empty list if none match).
-    """
+    input(city)
+    if city not in KNOWN_CITIES:
+        return False
+    
     raise NotImplementedError("find_by_city")
 
 
