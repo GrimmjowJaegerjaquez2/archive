@@ -1,17 +1,4 @@
-"""Reading and writing the Archive file.
-
-YOU IMPLEMENT THIS FILE.
-
-The file format is CSV with no header row. One record per line, five fields
-separated by commas, in this order:
-
-    id,title,city,year,condition
-    MS001,Tarikh al-Sudan,Timbuktu,1655,fragile
-
-Remember Session 1: a file is one long line of characters. The comma
-separates fields; the newline separates records. Nothing else is doing
-any work.
-"""
+import CSV
 
 from archive.errors import MalformedRecordError
 
@@ -19,37 +6,45 @@ FIELD_NAMES = ["id", "title", "city", "year", "condition"]
 
 
 def parse_line(line):
-    """Turn one CSV line into a dict with the five FIELD_NAMES as keys.
+    line = line.strip()
+    fields = line.split(",")
 
-    Whitespace around the line (including the trailing newline) is stripped.
-    Field values are stripped too.
+    if len(fields) != 5:
+        raise MalformedRecordError()
 
-    If the line does not split into exactly 5 fields, raise
-    MalformedRecordError. Do not guess, do not pad with blanks — a line with
-    four fields is not a record with an empty one, it is a broken line, and
-    the difference matters when you report it to whoever typed it.
+    fields = [field.strip() for field in fields]
 
-    Returns dict.
-    """
+    return dict(zip(FIELD_NAMES, fields))
     raise NotImplementedError("parse_line")
 
 
 def load_archive(path):
-    """Read the file at `path` and return (valid_records, rejected_lines).
+    valid_records = []
+    rejected_lines = []
 
-    valid_records   list of dicts that passed validate_record
-    rejected_lines  list of the ORIGINAL line strings that did not — either
-                    because they were malformed, or because validation
-                    rejected them
+    try:
+        with(path, "r") as file:
+            for line in file:
+                if line.strip() == "":
+                    continue
+                original_line = line
 
-    A file that does not exist is not an error. It means the archive is new.
-    Return ([], []) and DO NOT raise. Your program must start on a machine
-    where nobody has saved anything yet.
+                try:
+                    record = parse_line(line)
+                except MalformedRecordError:
+                    rejected_lines.append(original_line)
+                    continue
+                errors = validate_record(record)
 
-    Blank lines are skipped silently.
+                if errors:
+                    rejected_lines.append(original_line)
+                else:
+                    valid_records.append(record)
+    except FileNotFoundError:
+        return [], []
 
-    Returns (list, list).
-    """
+    return valid_records, rejected_lines
+
     raise NotImplementedError("load_archive")
 
 

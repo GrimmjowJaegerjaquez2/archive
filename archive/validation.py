@@ -29,79 +29,54 @@ MAX_YEAR = 1900
 
 
 def validate_id(value):
-    """An ID is the letters 'MS' followed by exactly three digits.
-
-    Valid:   "MS001", "MS742"
-    Invalid: "MS1", "MS0012", "ms001", "XX001", "", "MS00A"
-
-    Returns (bool, str).
-    """
-    if type(value) != str :
-        return False, "ID must be a string."
-    x = value.strip()
-    if len(x) != 5:
-        return False, "Id must be 5 characters long."
-    if x[0] != "M" or x[1] != "S":
-        return False, "ID must start with 'MS'."
-    for i in range (2,5):
-        if x[i].isdigit() == False:
-            return False, "ID must end with three digits."
-        else:
-            return True, "Valid"
-    print(validate_id(value))
+    if type(value) != str:
+        return False, "Invalid ID"
+    if value[0, 2] != "MS" or type(value[2, 5]) != int:
+        return False, "Invalid ID"
+    else:
+        return True, "Valid ID"
     raise NotImplementedError("validate_id")
 
 
 
 
 def validate_title(value):
-    """A title must be present and at least 3 characters once stripped.
-
-    Valid:   "Tarikh al-Sudan"
-    Invalid: "", "   ", "Ab"
-
-    Returns (bool, str).
-    """
-
- 
+    if type(value) != str:
+        return False
+    x = value.strip()
+    for i in range(0, len(x)):
+        if type(value[i]) != str:
+            if value[i] != " " or value[i] != "-":
+                return False
     raise NotImplementedError("validate_title")
 
-
 def validate_city(value):
-    """A city must be present and appear in KNOWN_CITIES.
-
-    Comparison is case-insensitive: "timbuktu" is acceptable.
-    "Kano" is not in our list, so it is rejected — and that is a real
-    decision with a cost. Write about it in your README.
-
-    Returns (bool, str).
-    """
+    if type(value) != str:
+        return False, "Invalid City"
+    if value not in KNOWN_CITIES:
+        return False, "Invalid City"
+    else:
+        return True, "Valid"
     raise NotImplementedError("validate_city")
 
 
 def validate_year(value):
-    """A year must be present, numeric, and between MIN_YEAR and MAX_YEAR
-    INCLUSIVE.
-
-    Valid:   "1655", "1100", "1900"
-    Invalid: "", "   ", "c.1590", "sixteen fifty", "1099", "1901", "2087"
-
-    Note that "2087" parses perfectly well as a number. It is still wrong.
-    That is the whole point of a range check.
-
-    Returns (bool, str).
-    """
+    if type(value) != int:
+        return False, "Invalid Year"
+    if value not in range(MIN_YEAR, MAX_YEAR + 1):
+        return False, "Invalid Year"
+    else:
+        return True, "Valid Year"
     raise NotImplementedError("validate_year")
 
 
 def validate_condition(value):
-    """A condition must be one of VALID_CONDITIONS, case-insensitively.
-
-    Valid:   "fragile", "GOOD", "Fair"
-    Invalid: "excellent", "", "ok"
-
-    Returns (bool, str).
-    """
+    if type(value) != str:
+        return False, "Invalid Condition"
+    if value == "fragile" ^ value == "fair" ^ value == "good":
+        return True, "Valid"
+    else:
+        return False, "Invalid Condition"
     raise NotImplementedError("validate_condition")
 
 
