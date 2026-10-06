@@ -38,6 +38,8 @@ def validate_id(value):
     raise NotImplementedError("validate_id")
 
 
+
+
 def validate_title(value):
     if type(value) != str:
         return False

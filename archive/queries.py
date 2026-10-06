@@ -13,7 +13,13 @@ Note in your README which one would be instant with a dictionary instead.
 
 
 def count_before(records, year):
-    raise NotImplementedError("count_before")
+    """How many manuscripts were written strictly BEFORE `year`?
+
+    `year` is an int. Record years may be strings from the file — convert.
+
+    Returns int.
+    """
+
 
 
 def find_by_city(records, city):
@@ -34,7 +40,7 @@ def oldest(records):
 
     Returns dict or None.
     """
-    raise NotImplementedError("oldest")
+ 
 
 
 def cities_summary(records):
@@ -47,4 +53,19 @@ def cities_summary(records):
 
     Returns dict.
     """
-    raise NotImplementedError("cities_summary")
+    city_counts = int([count1, count2, count3, count4, count5,])
+    
+    for record in records:
+        if record["city"] in KNOWN_CITIES:
+            for i in range(0, 6):
+                if record["city"] == KNOWN_CITIES[i]:
+                    city_counts[i] += 1
+
+                for city in KNOWN_CITIES:
+                    City_Summary = {}
+                    City_Summary[f"{city}"] = city_counts[i]
+
+
+
+        
+    
