@@ -8,15 +8,15 @@
 
 ## 1\. The record *(3 marks)*
 
-*What one manuscript looks like in our system, and what we do when a field is unknown.*
+A record in our archive looks like a dictionary with 5 fields: id, title, year, city, condition
 
 | Field | Type | Example | If it is unknown, we… |
 | --- | --- | --- | --- |
-| id |  | `MS001` |  |
-| title |  |  |  |
-| city |  |  |  |
-| year |  |  |  |
-| condition |  |  |  |
+| id | str | `MS001` | disallow the manuscript |
+| title | str | "Barkum al-Sudan" | disallow the manuscript  |
+| city | str | "Djenne"  | disallow the manuscript  |
+| year | str | "1645" | disallow the manuscript  |
+| condition | str | "good" | disallow the manuscript  |
 
 ---
 
@@ -24,17 +24,15 @@
 
 | Field | Rule(s) | Rejects (example) |
 | --- | --- | --- |
-| id |  |  |
-| title |  |  |
-| city |  |  |
-| year |  |  |
-| condition |  |  |
+| id | 1. is it  a str? 2. Does it start with MS and are it's last 3 elements numbers? | "M123" |
+| title | 1. is it a str 2. Is its length > 3? 3. Are its elements all alphabets or spaces or hyphens | "w1" |
+| city | 1. is it a str 2. Is it in KNOWN_CITIES?  | "New York" |
+| year | 1. is it a str 2. is it in the range of 1100 - 1900?| "2099" |
+| condition | 1. is it  a str | "Alright" |
 
 ### Who decided the year range?
 
-*The brief gave you 1100–1900. That was a decision someone made, and it has costs. 1900 excludes a modern copy of an old text. 1100 excludes anything earlier. State whether you accept these bounds or would change them, and say what your choice throws away. An undefended range scores 1 of the 4 marks.*
-
----
+We decided to keep the original range as we feel like most manuscripts would be in that range, and any others older or younger than that would be outliers.
 
 ## 3\. The `c.1590` decision *(3 marks)*
 
@@ -47,10 +45,11 @@
 - **(c)** Store `1590` plus a separate `approximate` flag.
 
 **Our choice:**
-
+We chose to reject it
 **Why:**
-
+It may be untrustworthy data.
 **What it costs us:**
+Because of this we lost some records in the archive
 
 ---
 
@@ -60,17 +59,17 @@
 
 | Test data | Value | Expected | Actual | Pass? |
 | --- | --- | --- | --- | --- |
-| Normal | 1655 | valid |  |  |
-| Abnormal |  |  |  |  |
-| Extreme (low) | 1100 | valid |  |  |
-| Extreme (high) |  |  |  |  |
-| Boundary (below) | 1099 | invalid |  |  |
-| Boundary (above) |  |  |  |  |
+| Normal | 1655 | valid | valid  | Yes |
+| Abnormal | Of Cource | invalid | invalid  | No |
+| Extreme (low) | 1100 | valid | valid | Yes |
+| Extreme (high) | 1900 | valid | valid | Yes |
+| Boundary (below) | 1099 | invalid | invalid | No |
+| Boundary (above) | 2001 | invalid | invalid | No |
 
-### `_______________` *(one other field of your choice)*
+### `Id` *(one other field of your choice)*
 
 | Test data | Value | Expected | Actual | Pass? |
-| --- | --- | --- | --- | --- |
+| Normal | MS234 | Valid | Valid | -Yes |
 
 ---
 
@@ -78,9 +77,9 @@
 
 *One paragraph each, written separately and signed. Do not write these together — the point is two honest accounts.*
 
-***(partner 1 name)*:** One thing my partner did that I will steal: One thing I would do differently next time:
+***(Lebone)*:** One thing my partner did that I will steal: Asking a lot of questions as it helped me understand my code One thing I would do differently next time: Do research on functions and understand them or find alternatives.
 
-***(partner 2 name)*:** One thing my partner did that I will steal: One thing I would do differently next time:
+***(Sonia)*:** One thing my partner did that I will steal: Lots of logic and trying different approaches. One thing I would do differently next time: More research
 
 ---
 
@@ -88,12 +87,12 @@
 
 *Required. See the integrity section of the brief.*
 
-- [ ] Both of us can explain every line in this repository.
+- [ YES ] Both of us can explain every line in this repository.
 
-- [ ] AI assistants used for explanation only, not to generate our implementation or our tests.
+- [YES ] AI assistants used for explanation only, not to generate our implementation or our tests.
 
 **If you used an AI assistant, say what you asked and what you did with the answer:**
-
+ We used Github Desktop to explain some of the functions meanings and to learn some other functions, like .isalpha().
 ---
 
 ## Running this project

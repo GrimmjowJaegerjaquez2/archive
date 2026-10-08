@@ -49,10 +49,5 @@ def load_archive(path):
 
 
 def save_archive(path, records):
-    """Write every record to `path` as CSV, one per line, no header.
 
-    Field order is FIELD_NAMES. The file is overwritten, not appended to.
-
-    Returns None.
-    """
     raise NotImplementedError("save_archive")
